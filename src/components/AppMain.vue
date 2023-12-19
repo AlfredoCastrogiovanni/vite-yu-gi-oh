@@ -6,7 +6,7 @@
     export default {
         name: "AppMain",
         components: {
-            Listcards,
+            ListCards,
             AppSearch
         },
         data() {
