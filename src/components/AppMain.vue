@@ -11,17 +11,16 @@
         },
         data() {
             return {
-                cardsList: [],
-                archetypeList : []
+                cardsList: []
             }
         },
         methods: {
-            getcardList(archetype) {
+            getCardList(archetype) {
                 axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
                     params: {
-                    num: 100,
+                    num: 4000,
                     offset: 0,
-                    archetype : archetype
+                    archetype: archetype
                     }
                 })
                 .then( response => {
@@ -32,22 +31,18 @@
                     console.log(error);
                 });
             },
-            filterArchetype() {
-                this.cardsList.forEach( card => !this.archetypeList.includes(card.archetype) ? this.archetypeList.push(card.archetype) : '' );
-                return this.archetypeList;
-            },
             selectArchetype(archetype) {
-                this.getcardList(archetype);
+                this.getCardList(archetype);
             }
         },
         created() {
-            this.getcardList()
+            this.getCardList();
         }
     }
 </script>
 
 <template>
-    <AppSearch :archetypeList="filterArchetype(cardsList)" @search="selectArchetype"/>
+    <AppSearch @search="selectArchetype"/>
     <Listcards :cardsList="cardsList"/>
 </template>
 
