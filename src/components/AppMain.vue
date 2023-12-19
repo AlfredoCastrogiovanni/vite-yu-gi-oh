@@ -1,5 +1,5 @@
 <script>
-    import Listcards from './Listcards.vue';
+    import ListCards from './ListCards.vue';
     import AppSearch from './AppSearch.vue';
     import axios from 'axios';
 
