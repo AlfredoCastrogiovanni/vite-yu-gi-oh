@@ -1,23 +1,27 @@
 <script>
     import Listcards from './Listcards.vue';
+    import AppSearch from './AppSearch.vue';
     import axios from 'axios';
 
     export default {
         name: "AppMain",
         components: {
-            Listcards
+            Listcards,
+            AppSearch
         },
         data() {
             return {
-                cardsList: []
+                cardsList: [],
+                archetypeList : []
             }
         },
         methods: {
-            getcardList() {
+            getcardList(archetype) {
                 axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
                     params: {
-                    num: 4000,
-                    offset: 0
+                    num: 100,
+                    offset: 0,
+                    archetype : archetype
                     }
                 })
                 .then( response => {
@@ -27,6 +31,13 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+            },
+            filterArchetype() {
+                this.cardsList.forEach( card => !this.archetypeList.includes(card.archetype) ? this.archetypeList.push(card.archetype) : '' );
+                return this.archetypeList;
+            },
+            selectArchetype(archetype) {
+                this.getcardList(archetype);
             }
         },
         created() {
@@ -36,6 +47,7 @@
 </script>
 
 <template>
+    <AppSearch :archetypeList="filterArchetype(cardsList)" @search="selectArchetype"/>
     <Listcards :cardsList="cardsList"/>
 </template>
 
