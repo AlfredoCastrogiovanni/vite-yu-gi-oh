@@ -1,11 +1,13 @@
 <script>
     import Listcards from './Listcards.vue';
+    import AppSearch from './AppSearch.vue';
     import axios from 'axios';
 
     export default {
         name: "AppMain",
         components: {
-            Listcards
+            Listcards,
+            AppSearch
         },
         data() {
             return {
@@ -13,11 +15,12 @@
             }
         },
         methods: {
-            getcardList() {
+            getCardList(archetype) {
                 axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
                     params: {
                     num: 4000,
-                    offset: 0
+                    offset: 0,
+                    archetype: archetype
                     }
                 })
                 .then( response => {
@@ -27,15 +30,19 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+            },
+            selectArchetype(archetype) {
+                this.getCardList(archetype);
             }
         },
         created() {
-            this.getcardList()
+            this.getCardList();
         }
     }
 </script>
 
 <template>
+    <AppSearch @search="selectArchetype"/>
     <Listcards :cardsList="cardsList"/>
 </template>
 
