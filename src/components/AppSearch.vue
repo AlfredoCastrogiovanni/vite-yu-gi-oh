@@ -30,7 +30,7 @@
 <template>
     <div class="container mb-3">
         <div class="row">
-            <select class="form-select" v-model="selectedArchetype" @click="$emit('search', selectedArchetype)">
+            <select class="form-select" v-model="selectedArchetype" @change="$emit('search', selectedArchetype)">
                 <option v-for="archetype in archetypeList" :value="archetype.archetype_name">{{ archetype.archetype_name }}</option>
             </select>
         </div>

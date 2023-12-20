@@ -20,7 +20,7 @@
                     params: {
                     num: 4000,
                     offset: 0,
-                    archetype: archetype
+                    archetype
                     }
                 })
                 .then( response => {
@@ -43,7 +43,7 @@
 
 <template>
     <AppSearch @search="selectArchetype"/>
-    <Listcards :cardsList="cardsList"/>
+    <ListCards :cardsList="cardsList"/>
 </template>
 
 <style lang="scss" scoped>
